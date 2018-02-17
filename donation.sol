@@ -1,5 +1,8 @@
 pragma solidity ^0.4.18;
 pragma experimental ABIEncoderV2;
+//"0xca35b7d915458ef540ade6068dfe2f44e8fa733c", "croix rouge"
+//"0x14723a09acff6d2a60dcdf7aa4aff308fddc160c", "monoprix"
+//"0xca35b7d915458ef540ade6068dfe2f44e8fa733c", ["machin", "lait"]
 
 contract DonationContract {
 
@@ -16,10 +19,8 @@ contract DonationContract {
   // Represents a supply donation between a store and an association
   struct Donation {
 
-    address assocation; // The association adress
+    address association; // The association adress
     address store; // The store address
-
-    Supply[] supplies; // The supplies being donated
 
     bool confirmed; // The association has to confirm the donation
   }
@@ -48,10 +49,10 @@ contract DonationContract {
 
 
   // Event to allow clients to react on a supply donation
-  event SendDonation(Donation donation);
+  //event SendDonation(Donation donation);
 
   // Event to allow clients to react on donation confirmation by the association
-  event ConfirmDonation(Donation donation);
+  //event ConfirmDonation(Donation donation);
 
 
   function DonationContract() public {
@@ -59,12 +60,18 @@ contract DonationContract {
   }
 
   // The donator calls this when giving supplies to an association
-  function donate(address receiver, Donation donation) public {
-
+  function donate(address _receiver) public {
+    
     // Create a new donation
-
+    donations.push(Donation({
+        association: _receiver, // The association adress
+        store: msg.sender,
+        confirmed: false
+    }));
+    
+    
     // Fires the Sent event after the transaction is performed
-    SendDonation(donation);
+    // SendDonation(donation);
   }
 
   // Create an association account
