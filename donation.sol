@@ -26,20 +26,21 @@ contract DonationContract {
 
   // Represents a store
   struct Store {
-    bytes32 name;
+    string name;
   }
 
   // Stores an 'Store' struct for an address
   mapping (address => Store) public stores;
-
+  address[] public storeAccts;
 
   // Represents an association
   struct Association {
-    bytes32 name;
+    string name;
   }
 
   // Stores an 'Association' struct for an address
   mapping (address => Association) public associations;
+  address[] public associationAccts;
 
   // Dynamically sized array of donations
   Donation[] public donations;
@@ -67,17 +68,19 @@ contract DonationContract {
   }
 
   // Create an association account
-  function createAssociation(address association, bytes32 name) public {
+  function createAssociation(address _address, string _name) public {
     //require();
     // Assign the association name
-    associations[association].name = name;
+    associations[_address].name = _name;
+    associationAccts.push(_address) -1;
   }
 
   // Create a store account
-  function createStore(address store, bytes32 name) public {
+  function createStore(address _address, string _name) public {
     //require();
     // Assign the store name
-    stores[store].name = name;
+    stores[_address].name = _name;
+    storeAccts.push(_address) -1;
   }
 
   // Confirm a donation
