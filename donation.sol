@@ -1,4 +1,5 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.18;
+pragma experimental ABIEncoderV2;
 
 contract DonationContract {
 
@@ -66,8 +67,18 @@ contract DonationContract {
   }
 
   // Create an association account
+  function createAssociation(address association, bytes32 name) public {
+    //require();
+    // Assign the association name
+    associations[association].name = name;
+  }
 
   // Create a store account
+  function createStore(address store, bytes32 name) public {
+    //require();
+    // Assign the store name
+    stores[store].name = name;
+  }
 
   // Confirm a donation
 }
