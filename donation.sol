@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-contract Don {
+contract DonationContract {
 
   // Represents a supply donated
   struct Supply {
@@ -45,11 +45,14 @@ contract Don {
 
 
 
-  // Event to allow clients to react on a product donation
-  event Sent(address from, address to, Donation donation)
+  // Event to allow clients to react on a supply donation
+  event SendDonation(Donation donation);
 
-  // Constructor runs when contract is created
-  function Don() public {
+  // Event to allow clients to react on donation confirmation by the association
+  event ConfirmDonation(Donation donation);
+
+
+  function DonationContract() public {
 
   }
 
@@ -59,6 +62,12 @@ contract Don {
     // Create a new donation
 
     // Fires the Sent event after the transaction is performed
-    Sent(msg.sender, receiver, donation)
+    SendDonation(donation);
   }
+
+  // Create an association account
+
+  // Create a store account
+
+  // Confirm a donation
 }
