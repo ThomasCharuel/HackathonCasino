@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 //"0xca35b7d915458ef540ade6068dfe2f44e8fa733c", "croix rouge"
 //"0x14723a09acff6d2a60dcdf7aa4aff308fddc160c", "monoprix"
 //"0xca35b7d915458ef540ade6068dfe2f44e8fa733c", ["machin", "lait"]
+//0, 1, 3, 5
 
 contract DonationContract {
 
@@ -10,6 +11,8 @@ contract DonationContract {
   struct Supply {
     
     uint supplyId; // The product identifier
+    
+    uint donationId; // The donation identifier
 
     uint amount; // The amount of this supply
 
@@ -45,6 +48,9 @@ contract DonationContract {
 
   // Dynamically sized array of donations
   Donation[] public donations;
+  
+  // Dynamically sized array of supplies
+  Supply[] public supplies;
 
 
 
@@ -60,7 +66,7 @@ contract DonationContract {
   }
 
   // The donator calls this when giving supplies to an association
-  function donate(address _receiver) public {
+  function createDonate(address _receiver) public {
     
     // Create a new donation
     donations.push(Donation({
@@ -72,6 +78,18 @@ contract DonationContract {
     
     // Fires the Sent event after the transaction is performed
     // SendDonation(donation);
+  }
+  
+  function addSupplyToDonation(uint _donationId, uint _supplyId, uint _amount, uint _unitPrice) public {
+      // require()
+      
+      // Create a new supply that is linked to a donation
+      supplies.push(Supply({
+          supplyId: _supplyId,
+          amount: _amount,
+          unitPrice: _unitPrice,
+          donationId: _donationId
+      }));
   }
 
   // Create an association account
@@ -91,4 +109,7 @@ contract DonationContract {
   }
 
   // Confirm a donation
+  function confirmDonation(uint _donationId) public {
+      donations[_donationId].confirmed = true;
+  }
 }
